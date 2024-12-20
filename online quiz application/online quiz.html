@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .quiz-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Quiz</h1>
+    <form id="quizForm" class="quiz-form">
+        <div>
+            <label for="userName">Your Name:</label>
+            <input type="text" id="userName" name="userName" required>
+        </div>
+
+        <div class="question">
+            <p>1. What is the capital of France?</p>
+            <input type="radio" id="q1a" name="q1" value="a" required>
+            <label for="q1a">A. Berlin</label><br>
+            <input type="radio" id="q1b" name="q1" value="b">
+            <label for="q1b">B. Madrid</label><br>
+            <input type="radio" id="q1c" name="q1" value="c">
+            <label for="q1c">C. Paris</label>
+        </div>
+
+        <div class="question">
+            <p>2. What is 5 + 3?</p>
+            <input type="radio" id="q2a" name="q2" value="a" required>
+            <label for="q2a">A. 7</label><br>
+            <input type="radio" id="q2b" name="q2" value="b">
+            <label for="q2b">B. 8</label><br>
+            <input type="radio" id="q2c" name="q2" value="c">
+            <label for="q2c">C. 9</label>
+        </div>
+
+        <div class="question">
+            <p>3. What is the largest planet in our solar system?</p>
+            <input type="radio" id="q3a" name="q3" value="a" required>
+            <label for="q3a">A. Earth</label><br>
+            <input type="radio" id="q3b" name="q3" value="b">
+            <label for="q3b">B. Jupiter</label><br>
+            <input type="radio" id="q3c" name="q3" value="c">
+            <label for="q3c">C. Mars</label>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit</button>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        function submitQuiz() {
+            const userName = document.getElementById('userName').value;
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked')?.value,
+                q2: document.querySelector('input[name="q2"]:checked')?.value,
+                q3: document.querySelector('input[name="q3"]:checked')?.value
+            };
+
+            const correctAnswers = {
+                q1: 'c',
+                q2: 'b',
+                q3: 'b'
+            };
+
+            let score = 0;
+            for (const [key, value] of Object.entries(correctAnswers)) {
+                if (answers[key] === value) {
+                    score++;
+                }
+            }
+
+            const resultDiv = document.getElementById('result');
+
+            let message = `${userName}, you scored ${score} out of 3. `;
+            if (score === 3) {
+                message += "Wow! Perfect score! Congratulations! 🎉";
+            } else if (score === 2) {
+                message += "Good job! You're almost there! 👍";
+            } else if (score === 1) {
+                message += "Keep trying! You'll do better next time! 😊";
+            } else {
+                message += "Don't give up! Practice makes perfect! 💪";
+            }
+
+            resultDiv.textContent = message;
+        }
+    </script>
+</body>
+</html>
